@@ -1,0 +1,12 @@
+update wykresu
+jest ustawiony oczekiwany numer updatu
+po odebraniu danych jeśli to dane dla danego numeru updateu zwiększany jest licznik, jak wszystkie zwiększą to wysyła
+event zeby zupdateowało wykres
+
+manager czeka interval
+wysyła request o wyniki do workerów
+czeka az wszystkie odpowiedzą
+wpisuje do nowej kolekcji/kolekcji ze wszstkimi danymi do wykresu te których endTime jest mniejszy od 
+czas_poprzedniego_pobrania + interval
+updatuje tą kolekcją wykres
+pozostałe wyniki daje do kolekcji, która później będzie dodana do wykresu
