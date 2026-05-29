@@ -19,7 +19,8 @@ public class HelloController {
         HttpClient client = context.getWorkersCommunicationClient();
 
         ContentResponse res = client.GET("http://localhost:8090/status");
-        welcomeText.setText("Welcome to JavaFX Application!");
+
+        welcomeText.setText(res.getContentAsString());
         client.stop();
     }
 
