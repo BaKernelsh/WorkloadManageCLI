@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.example.workloadmanager.Network.ResultSending";
+option java_outer_classname = "ResultsProto";
+
+package ResultSending;
+
+
+service ResultsService {
+  rpc SendResults(stream IntervalResults) returns (stream ManagerResponse) {}
+  rpc SendAllResults(AllResults) returns (ManagerResponse) {}
+}
+
+service ExecutionStats {
+  rpc ExecutionStats(ExecutionLogs) returns (ManagerResponse) {}
+}
+
+message AllResults {
+  repeated IntervalResults results = 1;
+}
+
+message IntervalResults {
+    string interval_id = 1;
+    string worker_id = 3;
+    map<string, OperationResultsList> resultsByOpId = 2;
+}
+
+message OperationResultsList {
+  repeated OperationResult results = 1;
+}
+
+message OperationResult {
+    sfixed64 startTime = 1;
+    sfixed64 endTime = 2;
+}
+
+message ManagerResponse {
+  optional bool ok = 1;
+  optional string errorMsg = 2;
+}
+
+message ExecutionLogs { //podzielic na poszczegolne thready ?
+  string operation_id = 1;
+  map<uint64, uint64> numberOfOpsExecutedBySecond = 2;
+}

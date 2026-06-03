@@ -1,0 +1,38 @@
+{
+  "workloadID": "testWorkload",
+  "sendResultIntervalMs": 500,
+  "workloadDurationMs": 5000,
+  "sendResultsInIntervals": false,
+
+  "operations": {
+    "insertCustomer": {
+      "describes": "operation",
+      "operationId": "insertCustomer",
+      "opType": "insertOne",
+      "collectionName": "col1",
+      "fields": {
+        "<fieldName>": "<dataType>"
+      },
+      "fieldValues": {
+        "<fielName>": "randomString",
+        "<fieldName>": "randomBoolean",
+        "<fieldName": {
+         "distribution": "<distributionName>",
+          "distributionParam1": 123
+        },
+        "<BooleanFieldName>": {
+          "true": 1,
+          "false": 3
+        },
+        "<DateFieldName": {
+          "minDate": "<ISO date>",
+          "maxDate": "<ISO date>"
+        },
+        "<ObjectFieldName>": {
+          "fields": {},
+          "fieldValues": {}
+        }
+      }
+    }
+  }
+}

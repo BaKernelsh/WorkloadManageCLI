@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.workloadmanager.GUI.WorkersListItemController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"  >
+
+        <HBox spacing="5" xmlns:fx="http://javafx.com/fxml"
+              style="-fx-border-color: gray; -fx-padding: 8;">
+
+            <VBox>
+                <Label text="WorkerID:"/>
+                <TextField fx:id="workerIDTextField"/>
+                <Label fx:id="duplicateWorkerIDLabel" textFill="red" visible="false" text="Worker IDs can't be equal" />
+            </VBox>
+            <VBox>
+                <Label text="Address"/>
+                <TextField fx:id="addressTextField"/>
+            </VBox>
+            <VBox>
+                <Label text="Port"/>
+                <TextField fx:id="portTextField"/>
+            </VBox>
+            <Button fx:id="connectButton" text="Connect" onAction="#addWorker" />
+        </HBox>
+
+        <Label fx:id="statusLabel"/>
+    </VBox>
+
+
+</AnchorPane>

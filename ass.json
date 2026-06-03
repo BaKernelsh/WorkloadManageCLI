@@ -1,0 +1,15 @@
+{
+  "worker1": {
+    "address": "localhost",
+    "port": 8090,
+    "ops": {
+      "insertCustomer": {
+        "frequency": "20/s",
+        "threadNumber": 5,
+        "addTimeBetweenRequests": false
+      }
+    }
+  }
+
+
+}
