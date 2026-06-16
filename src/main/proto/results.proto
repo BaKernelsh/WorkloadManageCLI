@@ -33,6 +33,7 @@ message OperationResultsList {
 message OperationResult {
     sfixed64 startTime = 1;
     sfixed64 endTime = 2;
+    string error = 3;
 }
 
 message ManagerResponse {
