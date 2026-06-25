@@ -98,6 +98,9 @@ public class TestMain {
 
             if(generationContext.getResultsLatch().await(15, TimeUnit.SECONDS)){
                 Results results = new Results(generationContext.getWorkersResults());
+                results.getResultsByOpID().forEach((opId, res) -> {
+                    System.out.println(opId + " " + res.size());
+                });
 
                 IResultSaver saver = new CSVResultSaver(Path.of("results"));
                 Result<Exception> saveResult =  saver.save(results);
