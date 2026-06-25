@@ -35,10 +35,8 @@ public class WorkloadConfig {
             Long sendResultIntervalMs = root.get("sendResultIntervalMs").asLong();
             Long workloadDurationMs = root.get("workloadDurationMs").asLong();
 
-            ObjectNode operations = root.get("operations").asObject();
-            for(Map.Entry<String, JsonNode> operation : operations.properties()){
-                opIDtoOpDescription.put(operation.getKey(), operation.getValue().toString());
-            }
+            //ObjectNode operations = root.get("operations").asObject();
+            putOperationsDescriptionStringsInMap(root.get("operations").asObject(), opIDtoOpDescription);
 
             WorkloadConfig config = new WorkloadConfig();
             config.setWorkloadID(workloadID);
@@ -50,6 +48,12 @@ public class WorkloadConfig {
         }catch(JacksonException e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private static void putOperationsDescriptionStringsInMap(ObjectNode operations, HashMap<String, String> map){
+        for(Map.Entry<String, JsonNode> operation : operations.properties()){
+            map.put(operation.getKey(), operation.getValue().toString());
         }
     }
 

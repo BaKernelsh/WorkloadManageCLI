@@ -1,7 +1,7 @@
 {
   "workloadID": "testWorkload",
   "sendResultIntervalMs": 500,
-  "workloadDurationMs": 5000,
+  "workloadDurationMs": 10000,
   "sendResultsInIntervals": false,
 
   "operations": {
@@ -33,6 +33,25 @@
           "fieldValues": {}
         }
       }
-    }
+    },
+    "placeOrder": {
+    },
+    "payment": {
+    },
+    "delivery": {
+    },
+    "fetchUserOrders": {
+    },
+    "fetchMainPageBooks": {
+    },
+    "fetchRecentlyViewedBooks": {
+    },
+    "searchBookByTitle": {
+    },
+    "fetchBookDetails": {
+    },
+    "saveBookView": {},
+    "fetchAuthorDetails": {},
+    "fetchBookReviews": {}
   }
 }

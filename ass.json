@@ -4,12 +4,66 @@
     "port": 8090,
     "ops": {
       "insertCustomer": {
-        "frequency": "20/s",
+        "frequency": "5/s",
         "threadNumber": 5,
+        "addTimeBetweenRequests": false
+      },
+      "placeOrder": {
+        "frequency": "10/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      },
+      "payment": {
+        "frequency": "10/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      },
+      "delivery": {
+        "frequency": "10/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      },
+      "fetchUserOrders": {
+        "frequency": "1/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      },
+      "fetchMainPageBooks": {
+        "frequency": "500/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "fetchRecentlyViewedBooks": {
+        "frequency": "100/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "searchBookByTitle": {
+        "frequency": "200/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "fetchBookDetails": {
+        "frequency": "1000/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "saveBookView": {
+        "frequency": "900/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "fetchAuthorDetails": {
+        "frequency": "900/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "fetchBookReviews": {
+        "frequency": "200/s",
+        "threadNumber": 10,
         "addTimeBetweenRequests": false
       }
     }
   }
-
 
 }

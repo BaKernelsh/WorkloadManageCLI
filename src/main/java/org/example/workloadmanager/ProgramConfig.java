@@ -12,9 +12,9 @@ public class ProgramConfig {
 
     public static String resultServerImpl = "grpc";
     public static int resultServerPort = 12344;
-    public static IResultServer getNewResultServerImpl(){
+    public static IResultServer getNewResultServerImpl(WorkloadGenerationContext generationContext){
         if(resultServerImpl.equals("grpc"))
-            return new ResultsServer(resultServerPort);
+            return new ResultsServer(resultServerPort, generationContext);
         return null;
     }
 

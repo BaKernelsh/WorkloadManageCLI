@@ -1,5 +1,6 @@
 package org.example.workloadmanager;
 
+import lombok.Getter;
 import org.eclipse.jetty.client.Destination;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.Request;
@@ -7,6 +8,7 @@ import org.eclipse.jetty.client.transport.HttpClientTransportOverHTTP;
 import org.eclipse.jetty.util.component.LifeCycle;
 import org.example.workloadmanager.Network.ResultSending.IResultServer;
 import org.example.workloadmanager.Network.GenerationWorker;
+import org.example.workloadmanager.Results.WorkerResults;
 import org.example.workloadmanager.SettingWorkload.WorkloadConfigForWorker;
 
 import java.util.*;
@@ -26,9 +28,13 @@ public class WorkloadGenerationContext {
     private HashMap<String, WorkloadConfigForWorker> workloadConfigByWorkerID;
     private HttpClient workersCommunicationClient;
     private final Object clientDestinationsGuard = new Object();
-
+    @Getter
     private final AtomicBoolean workloadStarted = new AtomicBoolean(false);
     private Thread waitForWorkloadEndThread;
+
+    private final HashMap<String, WorkerResults> resultsByWorkerID = new HashMap<>();
+    @Getter
+    private CountDownLatch resultsLatch;
 
 
     public CompletableFuture<List<SendToWorkerResult>> sendConfigurationToWorkersAsync(
@@ -72,15 +78,18 @@ public class WorkloadGenerationContext {
         this.workloadStartTimeNanos = System.nanoTime();
         setWorkloadParams(this.intervalDurationNanos, this.workloadDurationNanos, this.workloadStartTimeNanos);
         workloadStarted.set(true);
+        resultsLatch = new CountDownLatch(workersById.size());
 
         this.waitForWorkloadEndThread = new Thread(() -> {
             try {
                 Thread.sleep(workloadDurationNanos / 1_000_000);
+                System.out.println("czas workloadu zakonczony");
                 workloadStarted.set(false);
             }catch (InterruptedException e){
                 workloadStarted.set(false);
             }
         });
+        this.waitForWorkloadEndThread.start();
 
         ExecutorService executor = Executors.newFixedThreadPool(workersById.size());
 
@@ -116,15 +125,18 @@ public class WorkloadGenerationContext {
                 });
     }
 
+    public HashMap<String, WorkerResults> getWorkersResults(){
+        return resultsByWorkerID;
+    }
+
 
     public WorkloadGenerationContext() throws Exception {
-        this.resultServer = ProgramConfig.getNewResultServerImpl();
+        this.resultServer = ProgramConfig.getNewResultServerImpl(this);
         if(this.resultServer == null)
             throw new IllegalArgumentException("Unknown IResultConfig implementation in program config");
         this.resultServer.start();
 
         createWorkersCommunicationClient();
-
     }
 
     private void createWorkersCommunicationClient() throws Exception {
@@ -198,6 +210,15 @@ public class WorkloadGenerationContext {
         }catch(InterruptedException e){
             return Result.failure("Interrupted");
         }
+    }
+
+    public GenerationWorker getWorkerById(String id){
+        return workersById.get(id);
+    }
+
+    public void putWorkerResults(String workerID, WorkerResults results){
+        resultsByWorkerID.put(workerID, results);
+        resultsLatch.countDown();
     }
 
 

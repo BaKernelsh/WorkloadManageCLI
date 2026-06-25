@@ -27,6 +27,7 @@ public class GenerationWorker {
     private Long intervalDurationNanos;
     private Long workloadDurationNanos;
     private Long workloadStartTimeNanos;
+    @Getter
     private Long[] intervalOffsets;
     private final Object paramsGuard = new Object();
 
@@ -34,7 +35,7 @@ public class GenerationWorker {
 
     private final AtomicBoolean workloadStarted;
 
-
+    //TODO uzupełnić offsety - bo możliwe, że nie każdy intervalID będzie miał przypisany - uzupełnić brakujące poprzednim ?
     public void calculateAndAddIntervalOffset(Long t0, Long t1, Long t2, Long t3){
         synchronized (paramsGuard) {
             if (workloadStarted.get() && t0 >= workloadStartTimeNanos && t0 < workloadStartTimeNanos + workloadDurationNanos) {

@@ -1,5 +1,8 @@
 package org.example.workloadmanager;
 
+import org.example.workloadmanager.Results.Results;
+import org.example.workloadmanager.Results.Saving.CSVResultSaver;
+import org.example.workloadmanager.Results.Saving.IResultSaver;
 import org.example.workloadmanager.SettingWorkload.JobAssignment;
 import org.example.workloadmanager.SettingWorkload.WorkerDefinition;
 import org.example.workloadmanager.SettingWorkload.WorkloadConfig;
@@ -10,11 +13,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class TestMain {
     public static void main(String[] args) throws IOException {
-        if (args.length != 2) {
-            System.err.println("Usage: java Main <file>");
+        if (args.length < 2) {
+            System.err.println("Usage: java -jar JarName \"path to workload.json\" \"path to assign.json\" \"port\"");
             return;
         }
 
@@ -25,6 +29,11 @@ public class TestMain {
         String jobAssignmentJson = Files.readString(Path.of(args[1]));
         JobAssignment jobAssignment = JobAssignment.fromJson(jobAssignmentJson);
         System.out.println(jobAssignment);
+
+        if (args.length == 3) {
+            int resultServerPort = Integer.valueOf(args[2]);
+            ProgramConfig.resultServerPort = resultServerPort;
+        }
 
         HashMap<String, WorkloadConfigForWorker> workerWorkloadConfigs = workloadConfig.assignWorkloadConfigsForWorkers(jobAssignment);
         for(var e : workerWorkloadConfigs.entrySet()){
@@ -67,7 +76,7 @@ public class TestMain {
                                         result.getResult().getErrorMessage());
                             }
                         }
-                    });
+                    }).join();
 
             generationContext.startWorkload()
                     .thenAccept(results -> {
@@ -82,6 +91,23 @@ public class TestMain {
                             }
                         }
                     });
+
+            while(generationContext.getWorkloadStarted().get())
+                Thread.sleep(500);
+            System.out.println("glowny - koniec generacji");
+
+            if(generationContext.getResultsLatch().await(15, TimeUnit.SECONDS)){
+                Results results = new Results(generationContext.getWorkersResults());
+
+                IResultSaver saver = new CSVResultSaver(Path.of("results"));
+                Result<Exception> saveResult =  saver.save(results);
+                if(saveResult.isSuccess())
+                    System.out.println("results saved");
+                else {
+                    System.err.println("error in saving results");
+                    saveResult.getValue().printStackTrace();
+                }
+            }
 
             scanner.nextLine();
             scanner.close();

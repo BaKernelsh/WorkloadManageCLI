@@ -17,7 +17,8 @@ service ExecutionStats {
 }
 
 message AllResults {
-  repeated IntervalResults results = 1;
+    repeated IntervalResults results = 1;
+    string worker_id = 2;
 }
 
 message IntervalResults {

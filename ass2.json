@@ -1,0 +1,37 @@
+{
+  "worker1": {
+    "address": "localhost",
+    "port": 8090,
+    "ops": {
+      "insertCustomer": {
+        "frequency": "5/s",
+        "threadNumber": 5,
+        "addTimeBetweenRequests": false
+      },
+      "placeOrder": {
+        "frequency": "2/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      }
+    }
+  },
+
+  "worker2": {
+    "address": "localhost",
+    "port": 8091,
+    "ops": {
+      "insertCustomer": {
+        "frequency": "2/s",
+        "threadNumber": 5,
+        "addTimeBetweenRequests": false
+      },
+      "placeOrder": {
+        "frequency": "2/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      }
+    }
+  }
+
+
+}
