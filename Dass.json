@@ -1,0 +1,69 @@
+{
+  "worker1": {
+    "address": "localhost",
+    "port": 8090,
+    "ops": {
+      "DinsertCustomer": {
+        "frequency": "5/s",
+        "threadNumber": 5,
+        "addTimeBetweenRequests": false
+      },
+      "DplaceOrder": {
+        "frequency": "10/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      },
+      "Dpayment": {
+        "frequency": "10/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      },
+      "Ddelivery": {
+        "frequency": "10/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      },
+      "DfetchUserOrders": {
+        "frequency": "1/s",
+        "threadNumber": 2,
+        "addTimeBetweenRequests": false
+      },
+      "DfetchMainPageBooks": {
+        "frequency": "500/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DfetchRecentlyViewedBooks": {
+        "frequency": "100/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DsearchBookByTitle": {
+        "frequency": "200/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DfetchBookDetails": {
+        "frequency": "1000/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DsaveBookView": {
+        "frequency": "900/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DfetchAuthorDetails": {
+        "frequency": "900/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DfetchBookReviews": {
+        "frequency": "200/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      }
+    }
+  }
+
+}
