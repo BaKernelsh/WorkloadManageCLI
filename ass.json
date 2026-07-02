@@ -62,8 +62,29 @@
         "frequency": "200/s",
         "threadNumber": 10,
         "addTimeBetweenRequests": false
+      },
+      "insertReview": {
+        "frequency": "10/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "fetchReviewsByBookTitle": {
+        "frequency": "10/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "fetchReviewsByTitle": {
+        "frequency": "10/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "fetchReviewsByUsername": {
+        "frequency": "10/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
       }
     }
   }
+
 
 }

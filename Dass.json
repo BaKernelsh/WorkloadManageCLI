@@ -10,7 +10,7 @@
       },
       "DplaceOrder": {
         "frequency": "10/s",
-        "threadNumber": 2,
+        "threadNumber": 5,
         "addTimeBetweenRequests": false
       },
       "Dpayment": {
@@ -24,7 +24,7 @@
         "addTimeBetweenRequests": false
       },
       "DfetchUserOrders": {
-        "frequency": "1/s",
+        "frequency": "10/s",
         "threadNumber": 2,
         "addTimeBetweenRequests": false
       },
@@ -54,12 +54,32 @@
         "addTimeBetweenRequests": false
       },
       "DfetchAuthorDetails": {
-        "frequency": "900/s",
+        "frequency": "200/s",
         "threadNumber": 10,
         "addTimeBetweenRequests": false
       },
       "DfetchBookReviews": {
         "frequency": "200/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DFetchReviewsByBookTitle": {
+        "frequency": "100/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DFetchReviewsByTitle": {
+        "frequency": "100/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DFetchReviewsByUsername": {
+        "frequency": "100/s",
+        "threadNumber": 10,
+        "addTimeBetweenRequests": false
+      },
+      "DInsertReview": {
+        "frequency": "10/s",
         "threadNumber": 10,
         "addTimeBetweenRequests": false
       }

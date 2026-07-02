@@ -52,6 +52,10 @@
     },
     "saveBookView": {},
     "fetchAuthorDetails": {},
-    "fetchBookReviews": {}
+    "fetchBookReviews": {},
+    "fetchReviewsByBookTitle": {},
+    "fetchReviewsByTitle": {},
+    "fetchReviewsByUsername": {},
+    "insertReview": {}
   }
 }
